@@ -27,6 +27,13 @@ export class TasksService {
     return await this.taskRepository.createTask(createTaskDto);
   }
 
+  async deleteTask(id: number): Promise<void> {
+    const rowsAffected = await this.taskRepository.delete(id);
+    if (rowsAffected.affected === 0) {
+      throw new NotFoundException(`Task with id ${id} not found`);
+    }
+  }
+
   // private tasks: Task[] = [];
   // getAllTasks(): Task[] {
   //   return this.tasks;
@@ -44,11 +51,6 @@ export class TasksService {
   //     );
   //   }
   //   return tasks;
-  // }
-
-  // deleteTask(id: string): void {
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter(task => task.id !== found.id);
   // }
 
   // updateTaskStatus(id: string, status: TaskStatus) {
