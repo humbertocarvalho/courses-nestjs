@@ -34,8 +34,8 @@ export class TasksService {
     return await this.taskRepository.createTask(createTaskDto, user);
   }
 
-  async deleteTask(id: number): Promise<void> {
-    const rowsAffected = await this.taskRepository.delete(id);
+  async deleteTask(id: number, user: User): Promise<void> {
+    const rowsAffected = await this.taskRepository.delete({ id, user });
     if (rowsAffected.affected === 0) {
       throw new NotFoundException(`Task with id ${id} not found`);
     }
