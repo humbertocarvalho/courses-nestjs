@@ -7,6 +7,7 @@ describe('UserEntity', () => {
     user.password = 'TestPassword';
     bcrypt.compare = jest.fn();
   });
+
   describe('validatePassword', () => {
     it('returns true as password is valid', async () => {
       bcrypt.compare.mockReturnValue(true);
@@ -15,6 +16,7 @@ describe('UserEntity', () => {
       expect(bcrypt.compare).toHaveBeenCalledWith('1234', 'TestPassword');
       expect(result).toBeTruthy();
     });
+
     it('returns false as password is valid', async () => {
       bcrypt.compare.mockReturnValue(false);
       expect(bcrypt.compare).not.toHaveBeenCalled();
